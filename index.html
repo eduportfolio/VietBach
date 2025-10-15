@@ -1,0 +1,2549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pham Dang Viet Bach - Information Technology Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            position: relative;
+        }
+
+        /* Enhanced background effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 60%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 90% 30%, rgba(0, 150, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 10% 70%, rgba(255, 20, 147, 0.1) 0%, transparent 40%);
+            animation: backgroundPulse 12s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        @keyframes backgroundPulse {
+            0%, 100% { opacity: 0.8; transform: scale(1) rotate(0deg); }
+            25% { opacity: 1; transform: scale(1.05) rotate(1deg); }
+            50% { opacity: 0.9; transform: scale(1.1) rotate(0deg); }
+            75% { opacity: 1; transform: scale(1.03) rotate(-1deg); }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Scroll Progress Bar */
+        .scroll-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #00d4ff, #ff6b35, #8a2be2, #00d4ff);
+            background-size: 300% 300%;
+            animation: gradientMove 3s ease infinite;
+            z-index: 2000;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+
+        /* Navigation - Improved */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem 5%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+    margin-top: 4px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+}
+
+nav a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+}
+
+nav a.active {
+    color: #00d4ff;
+    background: rgba(0, 212, 255, 0.15);
+    text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+}
+
+nav a:hover {
+    color: #00d4ff;
+    text-shadow: 0 0 15px #00d4ff;
+    background: rgba(0, 212, 255, 0.1);
+}
+
+/* Remove underline animation */
+nav a::after {
+    display: none;
+}
+
+        /* Floating Navigation Button */
+        .floating-nav {
+            position: fixed;
+            top: 120px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d4ff, #ff6b35, #8a2be2);
+            background-size: 300% 300%;
+            animation: gradientRotate 4s ease infinite;
+            padding: 4px;
+            z-index: 1001;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .floating-nav.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .floating-nav:hover {
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.5);
+        }
+
+        .floating-nav-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a1a2e, #0c0c0c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+        .floating-nav-avatar {
+    width: 61px;
+    height: 61px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.floating-nav-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: relative;
+    z-index: 10;
+}
+
+        .scroll-progress {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg, 
+                #00d4ff 0%, 
+                #ff6b35 calc(var(--progress, 0%) * 0.6), 
+                #8a2be2 calc(var(--progress, 0%) * 0.8),
+                transparent var(--progress, 0%), 
+                transparent 100%
+            );
+            transition: all 0.3s ease;
+        }
+
+        @keyframes gradientRotate {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Hero Section - Professional & Clean */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, 
+        rgba(0, 212, 255, 0.05), 
+        rgba(255, 107, 53, 0.05), 
+        rgba(138, 43, 226, 0.05));
+    background-size: 300% 300%;
+    animation: gradientMove 8s ease infinite;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #00d4ff, #ff6b35, #8a2be2);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: textGradient 4s ease infinite;
+    letter-spacing: 3px;
+    line-height: 1.2;
+    overflow: hidden;
+    border-right: 3px solid #00d4ff;
+    white-space: nowrap;
+    animation: typing 3.5s steps(30, end), blink-caret 0.75s step-end infinite, textGradient 4s ease infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: #00d4ff; }
+}
+
+@keyframes textGradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.hero .subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+    color: #00d4ff;
+    font-weight: 500;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+    letter-spacing: 1px;
+}
+
+.hero .description {
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+    opacity: 0.85;
+    line-height: 1.7;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-weight: 400;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 14px 40px;
+    background: linear-gradient(135deg, #00d4ff, #ff6b35);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border: 2px solid transparent;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.cta-button:hover::before {
+    left: 100%;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(0, 212, 255, 0.3);
+}
+
+/* Responsive Hero */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+        letter-spacing: 1px;
+    }
+
+    .hero .subtitle {
+        font-size: 1.2rem;
+    }
+
+    .hero .description {
+        font-size: 0.95rem;
+        padding: 0 1rem;
+    }
+    
+    .cta-button {
+        padding: 12px 32px;
+        font-size: 1rem;
+    }
+}
+
+        /* Sections */
+        .section {
+            min-height: 100vh;
+            padding: 120px 5%;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, #00d4ff, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #00d4ff, #ff6b35);
+            border-radius: 2px;
+        }
+
+        /* About Me - Enhanced */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -25px;
+            left: -25px;
+            right: 25px;
+            bottom: 25px;
+            background: linear-gradient(135deg, #00d4ff, #ff6b35, #8a2be2);
+            border-radius: 25px;
+            z-index: -1;
+            animation: pulse 4s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.05) rotate(1deg); }
+        }
+
+        .placeholder-image {
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 107, 53, 0.2));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #00d4ff;
+            border: 3px solid rgba(0, 212, 255, 0.3);
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            opacity: 0.95;
+        }
+
+        .about-text p {
+            margin-bottom: 1.8rem;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        .gpa-box {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(255, 107, 53, 0.15));
+            border: 2px solid rgba(0, 212, 255, 0.4);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2.5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .gpa-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #00d4ff, #ff6b35, #8a2be2);
+            animation: loading 4s ease infinite;
+        }
+
+        @keyframes loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .gpa-title {
+            font-size: 1.8rem;
+            color: #00d4ff;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .gpa-scores {
+            display: flex;
+            justify-content: space-around;
+            gap: 3rem;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ff6b35;
+            text-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        /* Timeline Improvements with Corrected Layout */
+        .timeline {
+            position: relative;
+            margin: 4rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #00d4ff, #ff6b35, #8a2be2);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 4rem 0;
+            opacity: 0;
+            animation: slideIn 1s ease forwards;
+        }
+
+        /* Left side items (2023) */
+        .timeline-item.left {
+            animation-delay: 0.3s;
+        }
+
+        /* Right side items (2024) */
+        .timeline-item.right {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-content {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 107, 53, 0.1));
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 45%;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Left side positioning */
+        .timeline-item.left .timeline-content {
+            margin-right: 55%;
+        }
+
+        /* Right side positioning */
+        .timeline-item.right .timeline-content {
+            margin-left: 55%;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 212, 255, 0.25);
+            border-color: #00d4ff;
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: 50%;
+            top: 2%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #00d4ff, #ff6b35);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            z-index: 10;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .award-title, .leadership-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .award-description, .leadership-description {
+            opacity: 0.9;
+            line-height: 1.7;
+            font-size: 1.1rem;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        /* Contact Section - Enhanced */
+        .contact-links {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            text-align: center;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 107, 53, 0.1));
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 25px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            color: inherit;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #00d4ff, #ff6b35, #8a2be2);
+            background-size: 300% 300%;
+            animation: gradientMove 3s ease infinite;
+            transition: left 0.6s ease;
+        }
+
+        .contact-card:hover::before {
+            left: 100%;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .contact-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #00d4ff, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .contact-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #00d4ff;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .contact-info {
+            opacity: 0.9;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        /* Fix cho email dài trong contact card */
+.contact-card {
+  /* đảm bảo nội dung không tràn */
+  min-width: 0; /* quan trọng khi dùng grid/flex để cho phép phần tử co lại */
+}
+
+.contact-info {
+  font-size: 1.05rem;          /* nhỏ vừa phải so với tiêu đề */
+  line-height: 1.4;
+  word-break: break-word;      /* xuống hàng khi cần */
+  overflow-wrap: anywhere;     /* cho phép ngắt ở bất kỳ chỗ hợp lý */
+  white-space: normal;         /* bật việc xuống hàng thường quy */
+  max-width: 100%;             /* đảm bảo không vượt khung */
+  margin: 0 auto;
+  word-wrap: break-word;       /* legacy fallback */
+  text-align: center;          /* đẹp cho giao diện card */
+}
+
+/* responsive: giảm chữ trên màn hình nhỏ */
+@media (max-width: 480px) {
+  .contact-info {
+    font-size: 0.95rem;
+    padding: 0 6px;
+  }
+}
+
+        /* Enhanced particle system */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: meteorFloat 12s infinite linear;
+            opacity: 0.8;
+        }
+
+        .particle:nth-child(3n) {
+            width: 2px;
+            height: 2px;
+            background: #00d4ff;
+            box-shadow: 0 0 8px #00d4ff;
+        }
+
+        .particle:nth-child(3n+1) {
+            width: 3px;
+            height: 3px;
+            background: #ff6b35;
+            box-shadow: 0 0 10px #ff6b35;
+        }
+
+        .particle:nth-child(3n+2) {
+            width: 1px;
+            height: 1px;
+            background: #8a2be2;
+            box-shadow: 0 0 6px #8a2be2;
+        }
+
+        @keyframes meteorFloat {
+            0% {
+                transform: translateY(100vh) translateX(-50px) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px) scale(1.2);
+                opacity: 0;
+            }
+        }
+        /* Portfolio card đặc biệt */
+.portfolio-card {
+  grid-column: 1 / -1; /* chiếm full width trong grid, xuống hàng */
+  max-width: 400px;    /* giữ cho không quá to */
+  margin: 2rem auto;   /* căn giữa */
+  background: rgba(30, 30, 60, 0.9);
+  border: 2px solid transparent;
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  position: relative;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(0, 200, 255, 0.6);
+  background-clip: padding-box;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(15px);
+}
+
+/* hiệu ứng viền gradient sáng động */
+.portfolio-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  padding: 2px;
+  background: linear-gradient(270deg, #42caff, #ff7bff, #42caff);
+  background-size: 400% 400%;
+  animation: borderGlow 8s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, 
+                 linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+@keyframes borderGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.portfolio-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px rgba(0, 200, 255, 0.9), 0 0 80px rgba(255, 120, 255, 0.6);
+}
+.portfolio-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #42caff;
+  text-shadow: 0 0 15px rgba(66, 202, 255, 0.5);
+}
+.portfolio-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: justify;
+  opacity: 0.9;
+}
+/* Làm nổi bật Portfolio STEM hơn */
+.portfolio-highlight {
+  border: 2px solid transparent;
+  box-shadow: 0 0 25px rgba(0, 200, 255, 0.7), 0 0 50px rgba(255, 120, 255, 0.5);
+  position: relative;
+  background: rgba(40, 20, 70, 0.9);
+  z-index: 1;
+  transition: all 0.4s ease;
+}
+
+/* Viền phát sáng động */
+.portfolio-highlight::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 25px;
+  padding: 2px;
+  background: linear-gradient(270deg, #42caff, #ff7bff, #42caff);
+  background-size: 400% 400%;
+  animation: borderGlow 6s linear infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+@keyframes borderGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Hover mạnh hơn */
+.portfolio-highlight:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 40px rgba(0, 200, 255, 0.9), 0 0 80px rgba(255, 120, 255, 0.7);
+}
+@media (max-width: 480px) {
+  .contact-links {
+    grid-template-columns: 1fr; /* 1 cột khi màn hình nhỏ */
+  }
+}
+
+/* ===== PROFESSIONAL RESEARCH & PRODUCT SECTION ===== */
+
+/* Research Card Compact */
+.research-card-pro {
+  background: linear-gradient(135deg, rgba(15, 20, 45, 0.95), rgba(20, 30, 60, 0.95));
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+  color: #fff;
+  box-shadow: 0 10px 40px rgba(0, 180, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+}
+
+.research-card-pro:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 50px rgba(0, 212, 255, 0.35);
+  border-color: #00d4ff;
+}
+
+/* Header Badge */
+.research-badge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.badge-icon {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 150, 255, 0.2));
+  padding: 0.8rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+}
+
+.badge-info {
+  flex: 1;
+}
+
+.research-title-main {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #00d4ff;
+  margin: 0 0 0.4rem 0;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+}
+
+.research-meta {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.journal-link-inline {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.journal-link-inline:hover {
+  color: #00d4ff;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+}
+
+.journal-link-inline svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s ease;
+}
+
+.journal-link-inline:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* Paper Title */
+.paper-title-compact {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.4;
+  margin: 0 0 2rem 0;
+  padding-left: 1rem;
+  border-left: 4px solid #00d4ff;
+}
+
+/* Compact Grid Layout */
+.research-grid-compact {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 2rem;
+}
+
+/* Abstract Column */
+.abstract-column {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  padding: 1.8rem;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.abstract-label-compact {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #00d4ff;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  background: rgba(0, 212, 255, 0.1);
+  border-radius: 4px;
+}
+
+.abstract-text {
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  margin: 0;
+  font-size: 0.95rem;
+  text-align: justify;
+}
+
+/* Insights Column */
+.insights-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.insight-box {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  border-radius: 10px;
+  padding: 1.3rem;
+  transition: all 0.3s ease;
+}
+
+.insight-box:hover {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 107, 53, 0.5);
+  transform: translateX(5px);
+}
+
+.impact-box {
+  border-color: rgba(138, 43, 226, 0.3);
+}
+
+.impact-box:hover {
+  border-color: rgba(138, 43, 226, 0.5);
+}
+
+.insight-header {
+  font-size: 1rem;
+  color: #ff6b35;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+}
+
+.impact-box .insight-header {
+  color: #8a2be2;
+}
+
+.insight-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.insight-list li {
+  padding: 0.5rem 0;
+  padding-left: 1.2rem;
+  position: relative;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.insight-list li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: #ff6b35;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.impact-box .insight-list li::before {
+  color: #8a2be2;
+}
+
+.insight-list li strong {
+  color: #00d4ff;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .research-grid-compact {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .research-card-pro {
+    padding: 2rem;
+  }
+
+  .paper-title-compact {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .research-badge {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .research-title-main {
+    font-size: 1.3rem;
+  }
+
+  .research-card-pro {
+    padding: 1.5rem;
+  }
+
+  .abstract-column,
+  .insight-box {
+    padding: 1.3rem;
+  }
+}
+
+/* Product Card Professional */
+.product-card-pro {
+  background: linear-gradient(135deg, rgba(40, 20, 70, 0.95), rgba(60, 30, 90, 0.95));
+  border: 2px solid rgba(255, 120, 255, 0.3);
+  border-radius: 25px;
+  padding: 3rem;
+  margin: 3rem auto 2rem;
+  max-width: 1200px;
+  color: #fff;
+  box-shadow: 0 10px 40px rgba(255, 120, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+}
+
+.product-card-pro:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 50px rgba(255, 120, 255, 0.35);
+  border-color: #ff7bff;
+}
+
+.product-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid rgba(255, 120, 255, 0.2);
+}
+
+.product-icon {
+  font-size: 3rem;
+  background: linear-gradient(135deg, #ff7bff, #ff00ff);
+  padding: 1rem;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 20px rgba(255, 120, 255, 0.3);
+}
+
+.product-title-main {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ff7bff;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(255, 120, 255, 0.3);
+}
+
+.product-subtitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0.3rem 0 0 0;
+  font-weight: 400;
+}
+.product-subtitle a:hover {
+    color: #00d4ff !important;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+.project-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.product-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.product-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 25px rgba(0, 212, 255, 0.2);
+  transition: all 0.4s ease;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.gallery-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 10px 35px rgba(0, 212, 255, 0.4);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gallery-item:hover img {
+  filter: brightness(1.1);
+}
+
+.img-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  padding: 1rem;
+  color: #00d4ff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detail-block {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 120, 255, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.detail-block h5 {
+  font-size: 1.1rem;
+  color: #ff7bff;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.detail-block p {
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  background: rgba(255, 120, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.feature-icon {
+  font-size: 1.3rem;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.tech-tag {
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(138, 43, 226, 0.2));
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 20px;
+  color: #00d4ff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(138, 43, 226, 0.3));
+  transform: translateY(-2px);
+}
+
+.impact-block {
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(138, 43, 226, 0.05));
+  margin-top: 2.5rem;
+}
+
+.impact-block h5 {
+  color: #00d4ff;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .research-content-grid,
+  .product-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .research-card-pro,
+  .product-card-pro {
+    padding: 2rem;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .research-header,
+  .product-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .research-title-main,
+  .product-title-main {
+    font-size: 1.5rem;
+  }
+
+  .paper-title,
+  .project-title {
+    font-size: 1.3rem;
+  }
+}
+.research-card {
+  background: rgba(20, 20, 40, 0.7);
+  border: 1px solid #3ac5ff;
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 1100px;   /* full width but giữ đẹp */
+  color: #fff;
+  box-shadow: 0 0 20px rgba(0, 180, 255, 0.3);
+}
+
+.research-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #42caff;
+  margin-bottom: 1rem;
+}
+
+.research-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: justify;
+}
+/* Personal Product card style */
+.product-card {
+  background: rgba(40, 20, 60, 0.7); /* khác màu so với research-card */
+  border: 1px solid #ff7bff;
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 1100px;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(255, 120, 255, 0.3);
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 25px rgba(255, 150, 255, 0.5);
+  transition: all 0.3s ease;
+}
+/* Product images hover effect */
+.product-img-wrapper {
+    transition: all 0.4s ease;
+}
+
+.product-img-wrapper:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 0 35px rgba(0, 212, 255, 0.6) !important;
+}
+
+.product-photo {
+    transition: all 0.3s ease;
+}
+
+.product-photo:hover {
+    filter: brightness(1.1);
+}
+
+        /* Award images */
+        .award-image {
+            position: relative;
+    aspect-ratio: 4/3;         /* giữ khung tỷ lệ */
+    background: #111;
+    margin-top: 1rem;
+
+    display: flex;             /* căn giữa ảnh */
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    overflow: hidden;
+        }
+
+        .carousel-img, .award-photo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .award-arrow {
+            background: rgba(0, 212, 255, 0.2);
+            border: 2px solid #00d4ff;
+            color: #00d4ff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .award-arrow-left {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .award-arrow-right {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            background: rgba(255, 107, 53, 0.2);
+            border: 2px solid #ff6b35;
+            color: #ff6b35;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+                letter-spacing: 1px;
+            }
+
+            .hero .subtitle {
+                font-size: 1.4rem;
+            }
+
+            .hero .description {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-year {
+                left: 30px;
+                transform: translateY(-50%);
+            }
+            
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin: 20px 0 20px 80px !important;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .floating-nav {
+                top: 90px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+            }
+
+            .floating-nav-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .contact-links {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .gpa-scores {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0c0c0c, #1a1a2e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(0, 212, 255, 0.3);
+            border-top: 4px solid #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* style lightbox tóm tắt */
+.lightbox { 
+  position: fixed; top:0; left:0; width:100%; height:100%; 
+  background: rgba(0,0,0,0.9); display:flex; justify-content:center; align-items:center;
+}
+.lightbox img { max-width:80%; max-height:80%; z-index: 1000; border-radius:15px; box-shadow:0 0 30px rgba(0,212,255,0.5);}
+.close, .prev, .next {
+  position:absolute; font-size:2rem; color:#fff; cursor:pointer;  z-index: 1001; padding:10px; background:rgba(0,0,0,0.5); border-radius:50%; user-select:none;
+}
+.close { top:20px; right:30px; }
+.prev { left:30px; top:50%; transform:translateY(-50%); }
+.next { right:30px; top:50%; transform:translateY(-50%); }
+.close {
+  top: 75px; 
+  right: 210px;
+  padding: 8px 16px;
+  background: rgba(0,212,255,0.3);
+  border: 2px solid #00d4ff;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  z-index: 1001;
+  transition: background 0.3s;
+}
+
+.close:hover {
+  background: rgba(0,212,255,0.6);
+}
+.product-card {
+  position: relative;
+}
+
+.product-arrow {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #00d4ff, #ff6b35);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+  transition: all 0.3s ease;
+  
+  animation: pulseGlow 1.5s infinite, bounce 2.2s infinite;
+}
+
+.product-arrow:hover {
+  transform: scale(1.2) rotate(12deg);
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.8);
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
+  50% { box-shadow: 0 0 30px rgba(0, 212, 255, 0.8); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+
+    <!-- Enhanced Particles effect -->
+    <div class="particles" id="particles">
+        <!-- Particles will be generated by JavaScript -->
+    </div>
+
+    <!-- Floating Navigation Button -->
+    <div class="floating-nav" id="floatingNav">
+        <div class="scroll-progress" id="scrollProgress"></div>
+        <div class="floating-nav-avatar">
+          <img src="pic.png" alt="VB" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#awards">Honors & Awards</a></li>
+            <li><a href="#research">Research & Product</a></li>
+            <li><a href="#leadership">Leadership & Social Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content fade-in">
+            <h1>PHAM DANG VIET BACH</h1>
+            <div class="subtitle">Information Technology | Computer Science Excellence</div>
+            <p class="description">
+                Welcome to my portfolio! I'm Pham Dang Viet Bach, a Grade 11 Computer Science student at HUS High School for the Gifted. 
+                I'm passionate about Information Technology, problem-solving, and exploring the endless possibilities of computer science. 
+                Take a look at my journey below!
+            </p>
+            <a href="#about" class="cta-button">Learn More</a>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">About Me</h2>
+            <div class="about-content">
+                <div class="about-image fade-in">
+                    <img src="profilr.png" alt="Portrait/Video About Me" class="placeholder-image">
+                </div>
+                <div class="about-text fade-in">
+                    <p>
+                        I am Pham Dang Viet Bach, a Grade 11 student specializing in Computer Science at HUS High School for the Gifted. 
+                        My academic journey has been marked by unwavering dedication, with exceptional academic performance throughout my studies.
+                    </p>
+                    
+                    <div class="gpa-box">
+                        <div class="gpa-title">Academic Excellence</div>
+                        <div class="gpa-scores">
+                            <div class="score-item">
+                                <div>Grade 10</div>
+                                <div class="score">9.0</div>
+                            </div>
+                            <div class="score-item">
+                                <div>Grade 11</div>
+                                <div class="score">9.3</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p>
+                        Technology, for me, is not just a field of study, it is a gateway to innovation, empowerment, and real-world impact. 
+                        I am especially drawn to the intersections of artificial intelligence, software development, and social good. 
+                        I am committed to pursuing undergraduate studies in Information Technology in the United States, where I hope to 
+                        immerse myself in advanced research environments, collaborate with future-forward thinkers, and harness the power 
+                        of code to solve complex, human-centered problems.
+                    </p>
+                    
+                    <p>
+                        Alongside my academic pursuits, I have been fortunate to earn international recognition in informatics and AI research 
+                        competitions, and I remain actively involved in community-centered initiatives that keep me grounded in empathy and purpose. 
+                        These experiences have only strengthened my belief that technology must serve humanity, and that meaningful change begins 
+                        with both curiosity and compassion.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards Section -->
+    <section id="awards" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Honors & Awards</h2>
+            <div class="timeline">
+                <!-- 2023 - Left Side -->
+                <div class="timeline-item left">
+                    <div class="timeline-year">2023</div>
+                        <div class="timeline-content">
+                            <h3 class="award-title">Silver Medal - HKICO Informatics Competition</h3>
+                            <div class="award-carousel" data-images='["img/hkico1.jpg"]'>
+                                <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/HKICO.jpg" alt="HKICO Informatics Competition" class="carousel-img" style="max-width: 100%; max-height: 220px; display: block; margin: 0 auto; object-fit: contain;">
+                            </div>
+                            <p class="award-description">
+                                Earned at an international informatics contest recognizing excellence in algorithmic thinking and problem-solving. 
+                                Ranked among the top 16% globally.
+                            </p>
+                        </div>
+                </div>
+
+                <!-- 2024 First Item - Right Side -->
+                <div class="timeline-item right">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-content">
+                            <h3 class="award-title">Second Prize - Scientific Research at Me Linh Biological Station</h3>
+                            <div class="award-image" style="position: relative; aspect-ratio: 4/3; background: none; margin-top: 1rem;">
+                            <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/Me Linh.jpg" 
+                                alt="volunteering at SOS Children's Village" 
+                                class="award-photo" data-index="0">
+                            <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/tram sinh hoc Me Linh/z6781344009363_145bc9551d2c3893ff8eb4b215a0d436.jpg" 
+                                alt="activities with children at SOS village" 
+                                class="award-photo" data-index="1">
+                            <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/tram sinh hoc Me Linh/z6781341284360_b880e4eb4ea52be5c1a5d849981abd89.jpg" 
+                                alt="educational games with children" 
+                                class="award-photo" data-index="2">
+                            <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/tram sinh hoc Me Linh/z6781349838859_7890a290791ea85e42f417b70f89c85f.jpg" 
+                                alt="educational games with children" 
+                                class="award-photo" data-index="3">
+                            <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/tram sinh hoc Me Linh/z6781345427797_7f1260880baf7c32b66994bbb9754895.jpg" 
+                                alt="educational games with children" 
+                                class="award-photo" data-index="4">
+                            <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/tram sinh hoc Me Linh/z6781342709094_19c23b6e9a9a088031046435961f590b.jpg" 
+                                alt="educational games with children" 
+                                class="award-photo" data-index="5">
+                            <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/tram sinh hoc Me Linh/z6781350628327_6a434e52105934e78f4a6ffedb6d9fa1.jpg" 
+                                alt="educational games with children" 
+                                class="award-photo" data-index="6">
+                            <button type="button" aria-label="Previous image" class="award-arrow award-arrow-left">‹</button>
+                            <button type="button" aria-label="Next image" class="award-arrow award-arrow-right">›</button>
+                            </div>
+                            <p class="award-description">
+                                Conducted a biology field research project focusing on local ecosystems, environmental data collection, 
+                                and scientific reporting under a U.S.-based homeschooling program.
+                            </p>
+                    </div>
+                </div>
+
+                <!-- 2024 Second Item - Right Side -->
+                <div class="timeline-item right">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-content">
+                            <h3 class="award-title">Certificate - Scientific Research on Plastic Waste Reduction</h3>
+                            <div class="award-carousel" data-images='["img/plastic1.jpg"]'>
+                                <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/Rac Thai.jpg" alt="Plastic Waste Reduction" class="carousel-img" style="max-width: 100%; max-height: 220px; display: block; margin: 0 auto; object-fit: contain;">
+                            </div>
+                            <p class="award-description">
+                                Independently led a study on the environmental impact of plastic waste and proposed feasible solutions
+                                for reduction and sustainable alternatives.
+                            </p>
+                    </div>
+                </div>
+
+                <!-- 2025 - Left Side -->
+                <div class="timeline-item left">
+                    <div class="timeline-year">2025</div>
+                    <div class="timeline-content">
+                            <h3 class="award-title">Gold Medal - AIGC Competition</h3>
+                            <div class="award-carousel" data-images='["img/aigc1.jpg"]'>
+                                <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/AIGC.jpg" alt="AIGC Competition" class="carousel-img" style="max-width: 100%; max-height: 220px; display: block; margin: 0 auto; object-fit: contain;">
+                            </div>
+                            <p class="award-description">
+                                Developed an AI-powered protective gear recognition system to ensure construction site safety by automatically 
+                                detecting if workers are properly equipped. This project won first place for innovation and practical impact.
+                            </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Research & Personal Product Section -->
+<section id="research" class="section">
+    <div class="container">
+      <h2 class="section-title fade-in">Research & Personal Product</h2>
+  
+      <!-- Research Card -->
+<div class="research-card-pro fade-in">
+    <div class="research-badge">
+      <div class="badge-info">
+        <h3 class="research-title-main">Research Publication</h3>
+        <p class="research-meta">
+          <a href="https://ijsrm.net/index.php/ijsrm/article/view/6491" target="_blank" class="journal-link-inline">
+            International Journal of Scientific Research and Management (IJSRM) • 2025
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+            </svg>
+          </a>
+        </p>
+      </div>
+    </div>
+  
+    <h4 class="paper-title-compact">Applications and Impacts of IoT in Vietnam's Logistics Industry</h4>
+  
+    <div class="research-grid-compact">
+      <!-- Abstract Column -->
+      <div class="abstract-column">
+        <div class="abstract-label-compact">Abstract</div>
+        <p class="abstract-text">
+          Vietnam's logistics ecosystem has rapidly developed, with the country listed among top Asian nations in the field. 
+          High technologies such as AI, Big Data, Cloud Computing, and Internet of Things (IoT) have been applied to support 
+          fast development with reduced risks. This paper presents the applications and impacts of IoT for Vietnam's logistics 
+          sector, emphasizing its critical role through numerical analysis and providing recommendations for future development.
+        </p>
+      </div>
+  
+      <!-- Insights Column -->
+      <div class="insights-column">
+        <div class="insight-box">
+          <div class="insight-header">Key Contributions</div>
+          <ul class="insight-list">
+            <li>IoT integration in real-time tracking & warehouse management</li>
+            <li><strong>20-30% improvement</strong> in inventory accuracy</li>
+            <li>Adoption barriers and infrastructure analysis</li>
+            <li>Arduino-based prototype development</li>
+          </ul>
+        </div>
+  
+        <div class="insight-box impact-box">
+          <div class="insight-header">Research Impact</div>
+          <ul class="insight-list">
+            <li>Predictive maintenance cost reduction</li>
+            <li>Enhanced supply chain transparency</li>
+            <li>SME digital transformation roadmap</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+      <!-- Personal Product Card -->
+      <div class="product-card-pro fade-in">
+        <div class="product-header">
+          <div>
+            <h3 class="product-title-main">Personal Product Development</h3>
+            <p class="product-subtitle">
+              <a href="https://drive.google.com/drive/folders/1cdCmyYwoZq_x5OTTnsAbzOwuFkJ0t8dW" target="_blank" class="journal-link-inline">
+                AI-Powered Public Health Solution
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                </svg>
+              </a>
+          </p>
+          </div>
+        </div>
+  
+        <h4 class="project-title">Public Smoking Monitoring & Detection System</h4>
+  
+        <div class="product-layout">
+          <div class="product-gallery">
+            <div class="gallery-item">
+              <img src="Picture4.png" alt="Hardware Implementation" class="product-photo">
+              <span class="img-caption">Web Interface</span>
+            </div>
+            <div class="gallery-item">
+              <img src="Picture5.png" alt="Dashboard Interface" class="product-photo">
+              <span class="img-caption">User Web Interface (UWI)</span>
+            </div>
+          </div>
+  
+          <div class="product-details">
+            <div class="detail-block">
+              <h5>Project Overview</h5>
+              <p>An AI-powered monitoring system designed to detect smoking behavior in public spaces such as hospitals, schools, and parks. Supports enforcement of no-smoking regulations while promoting community health awareness.</p>
+            </div>
+  
+            <div class="detail-block">
+              <h5>Core Features</h5>
+              <div class="feature-grid">
+                <div class="feature-item">
+                  <span>AI Vision Detection</span>
+                </div>
+                <div class="feature-item">
+                  <span>Real-time Alerts</span>
+                </div>
+                <div class="feature-item">
+                  <span>Analytics Dashboard</span>
+                </div>
+                <div class="feature-item">
+                  <span>GPS Tracking</span>
+                </div>
+              </div>
+            </div>
+  
+            <div class="detail-block">
+              <h5>Technology Stack</h5>
+              <div class="tech-tags">
+                <span class="tech-tag">OpenCV</span>
+                <span class="tech-tag">YOLOv5/v8</span>
+                <span class="tech-tag">Python Flask</span>
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">Raspberry Pi</span>
+              </div>
+            </div>
+  
+            
+          </div>
+        </div>
+        <div class="detail-block impact-block">
+            <h5>Impact & Goals</h5>
+            <p>Leveraging AI to build healthier living environments, reduce public smoking incidents, and assist authorities in effective monitoring and violation handling.</p>
+          </div>
+      </div>
+  
+    </div>
+  </section>
+
+    <!-- Leadership Section -->
+    <section id="leadership" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Leadership & Social Work</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-year">2025</div>
+                    <div class="timeline-content">
+                        <h3 class="leadership-title">Volunteer Campaign - Che Tao Commune, Lao Cai (2025)</h3>
+<p class="leadership-description">
+    Actively engaged in a highland volunteer campaign at Che Tao Commune, Lao Cai, 
+    contributing to community well-being through medicine distribution, free medical check-ups, 
+    and the donation of essential supplies, medical cabinets, and facilities to support and improve 
+    the quality of life for local residents.
+</p>
+                        <div class="award-image" style="position: relative; aspect-ratio: 4/3; background: none; margin-top: 1rem;">
+                            <img src="iloveimg-resized/IMG_1199.jpg" 
+                                alt="volunteer work" 
+                                class="award-photo" data-index="0">
+                            <img src="iloveimg-resized/20250816_084442.jpg" 
+                                alt="distributing porridge to patients" 
+                                class="award-photo" data-index="1">
+                            <img src="iloveimg-resized/IMG_1154.jpg" 
+                                alt="charity work at hospital" 
+                                class="award-photo" data-index="2">
+                            <img src="iloveimg-resized/IMG_1180.jpg" 
+                                alt="charity work at hospital"  
+                                class="award-photo" data-index="3">
+                            <img src="iloveimg-resized/20250816_084851.jpg" 
+                                alt="charity work at hospital" 
+                                class="award-photo" data-index="4">
+                            <img src="iloveimg-resized/IMG_1096.jpg" 
+                                alt="charity work at hospital" 
+                                class="award-photo" data-index="5">
+                            <img src="iloveimg-resized/IMG_1166.jpg" 
+                                alt="charity work at hospital" 
+                                class="award-photo" data-index="6">
+                            <img src="iloveimg-resized/z6903093518312_9adbb619617c4f9427d6bfe2eb629857.jpg" 
+                                alt="charity work at hospital" 
+                                class="award-photo" data-index="7">
+                            <button type="button" aria-label="Previous image" class="award-arrow award-arrow-left">‹</button>
+                            <button type="button" aria-label="Next image" class="award-arrow award-arrow-right">›</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-year">2025</div>
+                    <div class="timeline-content">
+                        <h3 class="leadership-title">Volunteer - SOS Children's Village (August 2025)</h3>
+<p class="leadership-description">
+    Volunteered at the SOS Children's Village in August 2025, organizing recreational activities, teaching chess, 
+    and joining in a joyful lunch preparation with eight households in the village. Contributed both emotional support 
+    and material assistance through the donation of 100kg of rice and other essential supplies.
+</p>
+                        <div class="award-image" style="position: relative; aspect-ratio: 4/3; background: none; margin-top: 1rem;">
+                            <img src="anh6.jpg" 
+                                alt="Thang Long Imperial Citadel volunteer work" 
+                                class="award-photo" data-index="0">
+                            <img src="IMG_5879.jpg" 
+                                alt="distributing porridge to patients" 
+                                class="award-photo" data-index="1">
+                            <img src="IMG_5962.jpg" 
+                                alt="charity work at hospital"  
+                                class="award-photo" data-index="2">
+                            <img src="IMG_0573.jpg" 
+                                alt="charity work at hospital"  
+                                class="award-photo" data-index="3">
+                            <img src="Certi.png" 
+                                alt="charity work at hospital"  
+                                class="award-photo" data-index="4">
+                            <button type="button" aria-label="Previous image" class="award-arrow award-arrow-left">‹</button>
+                            <button type="button" aria-label="Next image" class="award-arrow award-arrow-right">›</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-year">2025</div>
+                    <div class="timeline-content">
+                        <h3 class="leadership-title">Cultural Promotion Volunteer - Thang Long Imperial Citadel</h3>
+                        <p class="leadership-description">
+                            Assisted in raising public awareness about the historical and cultural value of the Thang Long Imperial Citadel 
+                            through guided tours and educational materials, as part of a heritage conservation initiative.
+                        </p>
+                        <div class="award-image" style="position: relative; aspect-ratio: 4/3; background: none; margin-top: 1rem;">
+                            <img src="Hoang Thanh Thang Long.jpg" 
+                                alt="Thang Long Imperial Citadel volunteer work" 
+                                class="award-photo" data-index="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-content">
+                        <h3 class="leadership-title">Community Volunteer - Thanh Nhân Hospital</h3>
+                        <p class="leadership-description">
+                            Participated in a charity porridge distribution program, preparing and delivering meals to patients in need, 
+                            fostering empathy and community connection.
+                        </p>
+                        <div class="award-image" style="position: relative; aspect-ratio: 4/3; background: none; margin-top: 1rem;">
+                            <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/tu thien/z6781336723114_f0224b7257f785fa1dfee6affd6f6ab1.jpg" 
+                                alt="volunteering at Thanh Nhan Hospital" 
+                                class="award-photo" data-index="0">
+                            <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/tu thien/z6781338856390_d405c7308046a7e158c879af63c3257e.jpg" 
+                                alt="distributing porridge to patients" 
+                                class="award-photo" data-index="1">
+                            <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/tu thien/z6781339367206_7c62a235256e350f0d24ee41f05cb77f.jpg" 
+                                alt="charity work at hospital" 
+                                class="award-photo" data-index="2">
+                            <button type="button" aria-label="Previous image" class="award-arrow award-arrow-left">‹</button>
+                            <button type="button" aria-label="Next image" class="award-arrow award-arrow-right">›</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-content">
+                        <h3 class="leadership-title">Volunteer - SOS Children's Village</h3>
+                        <p class="leadership-description">
+                            Collaborated with classmates to organize interactive activities and educational games for children in the SOS Village, 
+                            aiming to spread joy and build emotional support for underprivileged youth.
+                        </p>
+                        <div class="award-image" style="position: relative; aspect-ratio: 4/3; background: none; margin-top: 1rem;">
+                            <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/lang tre em sos/z6781362994949_0e27abe51af78fade554a3812cac71cd.jpg" 
+                                alt="volunteering at SOS Children's Village" 
+                                class="award-photo" data-index="0">
+                            <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/lang tre em sos/z6781362977552_534409755e401956c6d833d2eb42194a.jpg" 
+                                alt="activities with children at SOS village" 
+                                class="award-photo" data-index="1">
+                            <img src="HONORS & AWARDS-20250811T034256Z-1-001/HONORS & AWARDS/lang tre em sos/z6781362981754_b42837c2b58293a0c2eae013b090d5e1.jpg" 
+                                alt="educational games with children" 
+                                class="award-photo" data-index="2">
+                            <img src="Lang Tre Em SOS.jpg" 
+                                alt="educational games with children" 
+                                class="award-photo" data-index="3">
+                            <button type="button" aria-label="Previous image" class="award-arrow award-arrow-left">‹</button>
+                            <button type="button" aria-label="Next image" class="award-arrow award-arrow-right">›</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Contact</h2>
+            <div class="contact-links fade-in">
+                <a href="mailto:phamdangvietbach2008@gmail.com" class="contact-card" title="phamdangvietbach2008@gmail.com" aria-label="Send email to phamdangvietbach2008@gmail.com">
+    <div class="contact-icon">✉</div>
+    <h3 class="contact-title">Email</h3>
+    <p class="contact-info">pham<wbr>dang<wbr>vietbach2008@gmail.com</p>
+</a>
+
+                <a href="https://www.facebook.com/bach.viet.0210/" target="_blank" class="contact-card">
+                    <div class="contact-icon">ⓕ</div>
+                    <h3 class="contact-title">Facebook</h3>
+                    <p class="contact-info">Connect with me</p>
+                </a>
+                <a href="tel:+84342263660" class="contact-card">
+  <div class="contact-icon">📞</div>
+  <h3 class="contact-title">Phone</h3>
+  <p class="contact-info">+84 342 263 660</p>
+</a>
+
+                <a href="https://docs.google.com/document/d/11t-IXsShOyN0vfOS2vNqBhCowbc6irBQCyKHzhCIVEc/edit?tab=t.0" target="_blank" class="contact-card">
+                    <div class="contact-icon">📄</div>
+                    <h3 class="contact-title">Download CV</h3>
+                    <p class="contact-info">View My CV</p>
+                </a>
+                <a href="https://drive.google.com/drive/folders/1cdCmyYwoZq_x5OTTnsAbzOwuFkJ0t8dW" target="_blank" class="contact-card portfolio-highlight">
+  <div class="contact-icon">📂</div>
+  <h3 class="contact-title">Portfolio STEM</h3>
+  <p class="contact-info">View My Portfolio</p>
+</a>
+<a href="https://github.com/kr4t0ssss" target="_blank" class="contact-card">
+        <div class="contact-icon">🖥️</div>
+        <h3 class="contact-title">GitHub</h3>
+        <p class="contact-info">Việt Bách (kr4t0ssss)</p>
+      </a>
+            </div>
+        </div>
+    </section>
+    <!-- Lightbox -->
+<div id="lightbox" class="lightbox" style="display:none;">
+  <img id="lightbox-img" src="" alt="Expanded Image">
+  <span id="lightbox-close" class="close">X</span>
+  <span id="lightbox-prev" class="prev">&#10094;</span>
+  <span id="lightbox-next" class="next">&#10095;</span>
+</div>
+
+    <script>
+        // Loading screen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Scroll Progress Bar
+        function updateScrollProgress() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            const progressBar = document.getElementById('scrollProgressBar');
+            progressBar.style.width = Math.min(scrollPercent, 100) + '%';
+        }
+
+        // Create enhanced floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 80;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Floating Navigation Button functionality
+        function initFloatingNav() {
+            const floatingNav = document.getElementById('floatingNav');
+            const scrollProgress = document.getElementById('scrollProgress');
+            
+            // Show floating nav after scrolling past hero
+            function toggleFloatingNav() {
+                if (window.scrollY > 200) {
+                    floatingNav.classList.add('visible');
+                } else {
+                    floatingNav.classList.remove('visible');
+                }
+            }
+            
+            // Update scroll progress
+            function updateFloatingScrollProgress() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = Math.min((scrollTop / docHeight) * 100, 100);
+                
+                scrollProgress.style.setProperty('--progress', scrollPercent + '%');
+            }
+            
+            // Scroll to top when clicked
+            floatingNav.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Update on scroll
+            window.addEventListener('scroll', () => {
+                toggleFloatingNav();
+                updateFloatingScrollProgress();
+                updateScrollProgress();
+            });
+            
+            updateFloatingScrollProgress();
+        }
+
+        // Image carousel functionality
+        function initImageCarousels() {
+            document.querySelectorAll('.award-image').forEach(container => {
+                const images = container.querySelectorAll('.award-photo');
+                const leftBtn = container.querySelector('.award-arrow-left');
+                const rightBtn = container.querySelector('.award-arrow-right');
+                let current = 0;
+                let interval = null;
+
+                if (images.length <= 1) return;
+
+                function showImage(idx) {
+                    images.forEach((img, i) => {
+                        if (i === idx) {
+                            img.style.opacity = 1;
+                            img.style.position = 'relative';
+                            img.style.zIndex = 1;
+                        } else {
+                            img.style.opacity = 0;
+                            img.style.position = 'absolute';
+                            img.style.zIndex = 1;
+                        }
+                    });
+                }
+
+                function nextImage() {
+                    current = (current + 1) % images.length;
+                    showImage(current);
+                }
+
+                function prevImage() {
+                    current = (current - 1 + images.length) % images.length;
+                    showImage(current);
+                }
+
+                // Arrow button events
+                if (leftBtn) {
+                    leftBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        prevImage();
+                    });
+                }
+
+                if (rightBtn) {
+                    rightBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        nextImage();
+                    });
+                }
+
+                // Auto-slide on hover
+                container.addEventListener('mouseenter', function() {
+                    if (interval) clearInterval(interval);
+                    interval = setInterval(nextImage, 2000);
+                });
+
+                container.addEventListener('mouseleave', function() {
+                    if (interval) clearInterval(interval);
+                    interval = null;
+                });
+
+                // Start with first image
+                showImage(current);
+
+                // Add hover effects to arrows
+                [leftBtn, rightBtn].forEach(btn => {
+                    if (btn) {
+                        btn.addEventListener('mouseenter', function() {
+                            this.style.transform = 'translateY(-50%) scale(1.1)';
+                            this.style.boxShadow = '0 5px 20px rgba(0, 212, 255, 0.4)';
+                        });
+                        
+                        btn.addEventListener('mouseleave', function() {
+                            this.style.transform = 'translateY(-50%) scale(1)';
+                            this.style.boxShadow = 'none';
+                        });
+                    }
+                });
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const navHeight = document.querySelector('nav').offsetHeight;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Scroll animations with intersection observer
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Enhanced nav background on scroll
+        function initNavScroll() {
+            const nav = document.querySelector('nav');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    nav.style.background = 'rgba(0, 0, 0, 0.95)';
+                    nav.style.backdropFilter = 'blur(20px)';
+                    nav.style.borderBottom = '1px solid rgba(0, 212, 255, 0.2)';
+                } else {
+                    nav.style.background = 'rgba(0, 0, 0, 0.9)';
+                    nav.style.backdropFilter = 'blur(15px)';
+                    nav.style.borderBottom = '1px solid rgba(0, 212, 255, 0.1)';
+                }
+            });
+        }
+
+        // Initialize all functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            initFloatingNav();
+            initImageCarousels();
+            initScrollAnimations();
+            initNavScroll();
+            updateScrollProgress();
+        });
+
+        // Performance optimization for scroll events
+        let ticking = false;
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        // Lấy element
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const btnClose = document.getElementById('lightbox-close');
+const btnPrev = document.getElementById('lightbox-prev');
+const btnNext = document.getElementById('lightbox-next');
+
+let images = [];   // mảng ảnh trong card
+let currentIndex = 0;
+
+// Gán sự kiện click cho ảnh trong mỗi card
+document.querySelectorAll('.award-image').forEach(card => {
+  const cardImages = card.querySelectorAll('.award-photo'); // ảnh trong card
+
+  cardImages.forEach((img, index) => {
+    img.addEventListener('click', () => {
+      images = Array.from(cardImages).map(i => i.src); // chỉ ảnh trong card này
+      currentIndex = index;
+      showLightbox();
+    });
+  });
+});
+// Gán sự kiện click cho ảnh trong award-carousel (các card chỉ có 1 ảnh)
+document.querySelectorAll('.award-carousel').forEach(card => {
+  const cardImages = card.querySelectorAll('.carousel-img'); 
+
+  cardImages.forEach((img, index) => {
+    img.addEventListener('click', () => {
+      images = Array.from(cardImages).map(i => i.src);
+      currentIndex = index;
+      showLightbox();
+    });
+  });
+});
+// Gán sự kiện click cho ảnh product
+document.querySelectorAll('.product-photo').forEach((img, index) => {
+  img.addEventListener('click', () => {
+    const allProductPhotos = document.querySelectorAll('.product-photo');
+    images = Array.from(allProductPhotos).map(i => i.src);
+    currentIndex = index;
+    showLightbox();
+  });
+});
+// Hiển thị lightbox
+function showLightbox() {
+  lightbox.style.display = 'flex';
+  lightboxImg.src = images[currentIndex];
+
+  if (images.length === 1) {
+    btnPrev.style.display = 'none';
+    btnNext.style.display = 'none';
+  } else {
+    btnPrev.style.display = 'block';
+    btnNext.style.display = 'block';
+  }
+}
+
+// Đóng lightbox
+btnClose.addEventListener('click', () => {
+  lightbox.style.display = 'none';
+});
+
+// Next / Prev
+btnNext.addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % images.length;
+  lightboxImg.src = images[currentIndex];
+});
+btnPrev.addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  lightboxImg.src = images[currentIndex];
+});
+// Đóng lightbox khi click ngoài ảnh
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) {
+    lightbox.style.display = 'none';
+  }
+});
+
+// Active Navigation Highlighting
+function initActiveNav() {
+    const sections = document.querySelectorAll('.section, .hero');
+    const navLinks = document.querySelectorAll('nav a');
+    
+    function updateActiveNav() {
+        let current = '';
+        const scrollPos = window.scrollY + 200;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                current = sectionId;
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href');
+            if (href === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+    
+    window.addEventListener('scroll', updateActiveNav);
+    updateActiveNav();
+}
+
+// Thêm vào DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    createParticles();
+    initFloatingNav();
+    initImageCarousels();
+    initScrollAnimations();
+    initNavScroll();
+    initActiveNav(); // <-- Thêm dòng này
+    updateScrollProgress();
+});
+// Typing effect for hero title
+function typeWriter() {
+    const text = "PHAM DANG VIET BACH";
+    const element = document.getElementById('heroTitle');
+    let i = 0;
+    
+    element.style.borderRight = '3px solid #00d4ff';
+    
+    function type() {
+        if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, 150);
+        } else {
+            setTimeout(() => {
+                element.style.animation = 'textGradient 4s ease infinite, blink-caret 0.75s step-end infinite';
+            }, 500);
+        }
+    }
+    type();
+}
+
+// Add to DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    typeWriter(); // <-- Thêm dòng này
+    createParticles();
+    initFloatingNav();
+    initImageCarousels();
+    initScrollAnimations();
+    initNavScroll();
+    initActiveNav();
+    updateScrollProgress();
+});
+    </script>
+</body>
+</html>
